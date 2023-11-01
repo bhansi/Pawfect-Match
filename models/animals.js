@@ -26,6 +26,10 @@ Animals.init(
     photo: {
       type: DataTypes.STRING,
     },
+    species: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   },
   {
     sequelize,
