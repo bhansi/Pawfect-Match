@@ -1,10 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-//class Animals extends Model {}
-class Animals extends Model {}
+class Favourites extends Model {}
 
-Animals.init(
+Favourites.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -12,19 +11,21 @@ Animals.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    age: {
+    client_id: {
       type: DataTypes.INTEGER,
-    },
-    description: {
-      type: DataTypes.TEXT,
       allowNull: false,
+      references: {
+        model: 'clients',
+        key: 'id',
+      },
     },
-    photo: {
-      type: DataTypes.STRING,
+    animal_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'animals',
+        key: 'id',
+      },
     },
   },
   {
@@ -32,8 +33,8 @@ Animals.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'animals',
+    modelName: 'favourites',
   }
 );
 
-module.exports = Animals;
+module.exports = Favourites;
