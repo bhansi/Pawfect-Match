@@ -1,0 +1,134 @@
+* {
+  background-color: #a28089;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header {
+  background-color: #a28089;
+  padding: 30px;
+  margin: 30px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 30px;
+  display: flex; 
+  justify-content: space-between; 
+}
+
+.navBar {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-end; 
+}
+
+.navBar button {
+  width: 100px;
+  padding: 10px 20px;
+  background-color: #a28089;
+  color: #edf7f6;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: 5px;
+
+}
+
+.navBar button:hover {
+  background-color: #76575f;
+}
+
+h1 {
+  color: #edf7f6;
+  text-align: center; 
+  font-size: 50px;
+  flex: 1; 
+}
+
+img {
+  height: 15%;
+  width: 15%;
+  display: block;
+  margin: 0 auto; 
+  margin-bottom: 15px;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  width: 200px;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: 10px;
+}
+
+.searchBar button {
+  width: 100px;
+  padding: 10px 20px;
+  background-color: #84e6da;
+  color: #328561;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: 5px;
+  margin-right: 1px;
+}
+
+.searchBar button:hover {
+  background-color: #63ada5;
+}
+
+.subContainers {
+  display: flex;
+  margin: 30px;
+}
+
+.subContainer1, .subContainer2, .subContainer3 {
+  padding: 30px;
+  flex: 1;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 30px;
+  margin-right: 10px;
+}
+
+.subContainer1:last-child, .subContainer2:last-child, .subContainer3:last-child {
+  margin-right: 0;
+}
+
+.subContainer1 img, .subContainer2 img, .subContainer3 img {
+  height: 60%;
+  width: 45%;
+  display: block;
+  margin: 0 auto; 
+  margin-bottom: 15px;
+}
+
+h2 {
+  color: #edf7f6;
+  text-align: center; 
+  font-size: 40px;
+}
+
+footer {
+  padding: 30px;
+  margin: 30px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 30px;
+  font-size: 10px;
+  text-align: center; 
+}
+
+h3 {
+  text-align: center; 
+  font-size: 20px;
+}
+
+
+/* Media Query for mobile screens */
+@media (max-width: 768px) {}
