@@ -11,10 +11,6 @@ Animals.init(
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
-      references: {
-        model: 'adoptions',
-        key: 'id',
-      },
     },
     name: {
       type: DataTypes.STRING,

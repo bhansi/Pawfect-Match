@@ -29,11 +29,14 @@ Clients.init(
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: true, // Assuming the address can be nullable, adjust if not the case
+      allowNull: false,
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        len: [8],
+      },
     },
   },
   {
