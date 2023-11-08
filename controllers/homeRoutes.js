@@ -14,6 +14,14 @@ router.get('/', async (req, res) => {
         adoption_status: 'pending'
       }
     });
+
+    if(!animalsData) {
+      res.json({
+        message: 'There are no animals available for adoption.'
+      });
+      return;
+    }
+
     const animals = animalsData.map((animal) => animal.get({ plain: true }));
 
     res.render('homepage', {
@@ -40,6 +48,14 @@ router.get('/dogs', async (req, res) => {
         adoption_status: 'pending'
       },
     });
+
+    if(!dogData) {
+      res.json({
+        message: 'There are no dogs available for adoption'
+      });
+      return;
+    }
+
     const dogs = dogData.map((dog) => dog.get({ plain: true }));
 
     res.render('homepage', {
@@ -66,6 +82,14 @@ router.get('/cats', async (req, res) => {
         adoption_status: 'pending'
       },
     });
+
+    if(!catData) {
+      res.json({
+        message: 'There are no cats available for adoption'
+      });
+      return;
+    }
+
     const cats = catData.map((cat) => cat.get({ plain: true }));
 
     res.render('homepage', {
