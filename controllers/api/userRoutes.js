@@ -1,5 +1,52 @@
 const router = require('express').Router();
-const { Employees, Clients } = require('../../models');
+const { Employees, Clients, Adoptions, Animals } = require('../../models');
+const withEmployeeAuth = require('../../utils/auth')
+
+router.get('/applications', withEmployeeAuth, async (req, res) => {
+  try {
+    const applicationData = await Adoptions.findAll({
+      where: {
+        adoption_status: [ 'pending', 'requested' ]
+      },
+      include: [
+        {
+          model: Animals,
+          required: true
+        },
+        {
+          model: Clients,
+          required: true
+        }
+      ],
+      order: [
+        [ 'request_date', 'ASC' ],
+        [ 'animal_id', 'ASC' ]
+      ]
+    });
+
+    if(!applicationData) {
+      res.json({
+        message: 'There are no active applications to display.'
+      });
+    }
+
+    const applications = applicationData.map((application) => application.get({ plain: true }));
+
+    res.render('applications', {
+      ...applications
+    });
+  } catch(err) {
+    res.status(400).json(err);
+  }
+});
+
+// router.put('/applications/:id', withEmployeeAuth, async (req, res) => {
+//   try {
+//     const applicationData = Adoptions.findByPk(req.body.id);
+//   } catch(err) {
+//     res.status(400).json(err);
+//   }
+// });
 
 router.post('/login', async (req, res) => {
   try {
