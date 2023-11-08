@@ -1,17 +1,35 @@
 const router = require('express').Router();
-const { Animals } = require('../models');
+const { Animals, Adoptions } = require('../models');
 
 //Home route
 router.get('/', async (req, res) => {
   try {
-    const animalsData = await Animals.findAll();
+    const animalsData = await Animals.findAll({
+      include: [
+        {
+          model: Adoptions,
+          required: false
+        }
+      ],
+      where: {
+        adoption_status: 'pending'
+      }
+    });
+
+    if(!animalsData) {
+      res.json({
+        message: 'There are no animals available for adoption.'
+      });
+      return;
+    }
+
     const animals = animalsData.map((animal) => animal.get({ plain: true }));
 
-    // Render a single page
-    res.render('animals', {
-      showNavBar: true, // condition to show the nav bar
-      animals, // Pass the animals data to the template
-      title: 'Animals Page', // Pass the title to the template
+
+    res.render('homepage', {
+      ...animals,
+      logged_in: req.session.logged_in,
+      is_employee: req.session.is_employee
     });
   } catch (err) {
     res.status(500).json(err);
@@ -21,13 +39,32 @@ router.get('/', async (req, res) => {
 router.get('/dogs', async (req, res) => {
   try {
     const dogData = await Animals.findAll({
+      include: [
+        {
+          model: Adoptions,
+          required: false
+        }
+      ],
       where: {
         species: 'dog',
+        adoption_status: 'pending'
       },
     });
+
+    if(!dogData) {
+      res.json({
+        message: 'There are no dogs available for adoption'
+      });
+      return;
+    }
+
     const dogs = dogData.map((dog) => dog.get({ plain: true }));
 
-    res.render('dogs', { ...dogs });
+    res.render('homepage', {
+      ...dogs,
+      logged_in: req.session.logged_in,
+      is_employee: req.session.is_employee
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -35,18 +72,38 @@ router.get('/dogs', async (req, res) => {
 //Cats route
 router.get('/cats', async (req, res) => {
   try {
-    const dogData = await Animals.findAll({
+    const catData = await Animals.findAll({
+      include: [
+        {
+          model: Adoptions,
+          required: false
+        }
+      ],
       where: {
         species: 'cat',
+        adoption_status: 'pending'
       },
     });
-    const cats = dogData.map((cat) => cat.get({ plain: true }));
 
-    res.render('cats', { ...cats });
+    if(!catData) {
+      res.json({
+        message: 'There are no cats available for adoption'
+      });
+      return;
+    }
+
+    const cats = catData.map((cat) => cat.get({ plain: true }));
+
+    res.render('homepage', {
+      ...cats,
+      logged_in: req.session.logged_in,
+      is_employee: req.session.is_employee
+    });
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
 
 //Adoption form route
 router.get('/adoptions', (req, res) => {
@@ -54,9 +111,20 @@ router.get('/adoptions', (req, res) => {
   res.render('adoptions', { showNavBar: false });
 });
 
-//Login route
+//Login route if the user is already logged in  redirect to the homepage
+router.get('/login', (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect('/');
+    return;
+  }
+  
+//Login route If not logged in
 router.get('/login', (req, res) => {
   res.render('login', { title: 'Login Page' });
   res.render('login', { showNavBar: false }); // condition to not show the nav bar
 });
+  res.render('login');
+});
+
+
 module.exports = router;
