@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
         }
       ],
       where: {
-        adoption_status: 'pending'
+        '$adoption.adoption_status$': 'pending'
       }
     });
 
@@ -47,7 +47,7 @@ router.get('/dogs', async (req, res) => {
       ],
       where: {
         species: 'dog',
-        adoption_status: 'pending'
+        '$adoption.adoption_status$': 'pending'
       },
     });
 
@@ -81,7 +81,7 @@ router.get('/cats', async (req, res) => {
       ],
       where: {
         species: 'cat',
-        adoption_status: 'pending'
+        '$adoption.adoption_status$': 'pending'
       },
     });
 
