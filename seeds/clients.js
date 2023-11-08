@@ -15,6 +15,13 @@ const clientsData = [
     address: '456 Elm St',
     password: '123456789',
   },
+  {
+    first_name: 'David',
+    last_name: 'Blane',
+    email: 'david.blane@example.com',
+    address: '789 Somewhere St',
+    password: '123456789',
+  },
 ];
 
 const seedClients = () =>
