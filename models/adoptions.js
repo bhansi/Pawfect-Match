@@ -30,7 +30,7 @@ Adoptions.init(
       allowNull: false,
     },
     adoption_status: {
-      type: DataTypes.STRING, // pending, requested, approved, denied, adopted
+      type: DataTypes.STRING, // pending, requested, approved, denied, adopted, cancelled
       allowNull: false,
     },
     adoption_date: {
