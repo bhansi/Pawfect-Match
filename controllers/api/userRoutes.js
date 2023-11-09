@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const { Employees, Clients, Adoptions, Animals } = require('../../models');
-const withEmployeeAuth = require('../../utils/auth')
+const { Employees, Clients } = require('../../models');
 
 router.post('/login', async (req, res) => {
   try {
