@@ -25,15 +25,16 @@ router.get('/', async (req, res) => {
 
     const animals = animalsData.map((animal) => animal.get({ plain: true }));
 
-    res.render('homepage', {
-      ...animals,
-      logged_in: req.session.logged_in,
-      is_employee: req.session.is_employee,
+    res.render('animals', {
+      showNavBar: true, // condition to show the nav bar
+      animals, // Pass the animals data to the template
+      title: 'Animals Page', // Pass the title to the template
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
 //Dogs route
 router.get('/dogs', async (req, res) => {
   try {
@@ -68,6 +69,7 @@ router.get('/dogs', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 //Cats route
 router.get('/cats', async (req, res) => {
   try {
