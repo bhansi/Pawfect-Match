@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Employees, Clients, Adoptions, Animals } = require('../../models');
 const withEmployeeAuth = require('../../utils/auth')
 
+// Retrieve all active applications
 router.get('/applications', /* withEmployeeAuth, */ async (req, res) => {
   try {
     const applicationData = await Adoptions.findAll({
@@ -41,6 +42,7 @@ router.get('/applications', /* withEmployeeAuth, */ async (req, res) => {
   }
 });
 
+// Update specific application
 router.put('/applications/:id', /* withEmployeeAuth, */ async (req, res) => {
   try {
     const primaryApplication = await Adoptions.findByPk(req.params.id);
@@ -75,6 +77,26 @@ router.put('/applications/:id', /* withEmployeeAuth, */ async (req, res) => {
 
     res.json({
       message: 'Successfully updated adoption request.'
+    });
+  } catch(err) {
+    res.status(400).json(err);
+  }
+});
+
+// Update specific animal
+router.put('/animals/:id', /* withEmployeeAuth, */ async (req, res) => {
+  try {
+    const animalData = await Animals.findByPk(req.params.id);
+
+    animalData.name = req.body.name;
+    animalData.age = req.body.age;
+    animalData.description = req.body.description;
+    animalData.species = req.body.species;
+
+    await animalData.save();
+
+    res.json({
+      message: 'Successfully updated animal data.'
     });
   } catch(err) {
     res.status(400).json(err);
