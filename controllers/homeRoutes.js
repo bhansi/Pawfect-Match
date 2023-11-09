@@ -8,28 +8,27 @@ router.get('/', async (req, res) => {
       include: [
         {
           model: Adoptions,
-          required: false
-        }
+          required: false,
+        },
       ],
       where: {
-        '$adoption.adoption_status$': 'pending'
-      }
+        '$adoption.adoption_status$': 'pending',
+      },
     });
 
-    if(!animalsData) {
+    if (!animalsData) {
       res.json({
-        message: 'There are no animals available for adoption.'
+        message: 'There are no animals available for adoption.',
       });
       return;
     }
 
     const animals = animalsData.map((animal) => animal.get({ plain: true }));
 
-
     res.render('homepage', {
       ...animals,
       logged_in: req.session.logged_in,
-      is_employee: req.session.is_employee
+      is_employee: req.session.is_employee,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -42,18 +41,18 @@ router.get('/dogs', async (req, res) => {
       include: [
         {
           model: Adoptions,
-          required: false
-        }
+          required: false,
+        },
       ],
       where: {
         species: 'dog',
-        '$adoption.adoption_status$': 'pending'
+        '$adoption.adoption_status$': 'pending',
       },
     });
 
-    if(!dogData) {
+    if (!dogData) {
       res.json({
-        message: 'There are no dogs available for adoption'
+        message: 'There are no dogs available for adoption',
       });
       return;
     }
@@ -63,7 +62,7 @@ router.get('/dogs', async (req, res) => {
     res.render('homepage', {
       ...dogs,
       logged_in: req.session.logged_in,
-      is_employee: req.session.is_employee
+      is_employee: req.session.is_employee,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -76,18 +75,18 @@ router.get('/cats', async (req, res) => {
       include: [
         {
           model: Adoptions,
-          required: false
-        }
+          required: false,
+        },
       ],
       where: {
         species: 'cat',
-        '$adoption.adoption_status$': 'pending'
+        '$adoption.adoption_status$': 'pending',
       },
     });
 
-    if(!catData) {
+    if (!catData) {
       res.json({
-        message: 'There are no cats available for adoption'
+        message: 'There are no cats available for adoption',
       });
       return;
     }
@@ -97,13 +96,12 @@ router.get('/cats', async (req, res) => {
     res.render('homepage', {
       ...cats,
       logged_in: req.session.logged_in,
-      is_employee: req.session.is_employee
+      is_employee: req.session.is_employee,
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
-
 
 //Adoption form route
 router.get('/adoptions', (req, res) => {
@@ -111,20 +109,16 @@ router.get('/adoptions', (req, res) => {
   res.render('adoptions', { showNavBar: false });
 });
 
-//Login route if the user is already logged in  redirect to the homepage
+//Login route
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
     res.redirect('/');
-    return;
+  } else {
+    res.render('login', {
+      title: 'Login Page', //conditional rendering
+      showNavBar: false, //conditional rendering
+    });
   }
-  
-//Login route If not logged in
-router.get('/login', (req, res) => {
-  res.render('login', { title: 'Login Page' });
-  res.render('login', { showNavBar: false }); // condition to not show the nav bar
 });
-  res.render('login');
-});
-
 
 module.exports = router;
