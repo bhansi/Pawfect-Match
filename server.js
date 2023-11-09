@@ -1,16 +1,37 @@
 // Import the express package
+
+// Import the express package
 const express = require('express');
 const app = express();
-// Import the express-session package for session management
-const session = require('express-session');
-// Import the express-handlebars package for view rendering
-const exphbs = require('express-handlebars');
-const helpers = require('./utils/auth');
-// Set up Handlebars.js engine with custom helpers
-const hbs = exphbs.create({ helpers });
-const Handlebars = require('handlebars');
 // Import the path package to work with file and directory paths
 const path = require('path');
+// Import the file system module
+const fs = require('fs');
+
+// Import the express-session package for session management
+const session = require('express-session');
+
+// Import the express-handlebars package for view rendering
+const exphbs = require('express-handlebars');
+
+// Import custom helper functions if needed
+const helpers = require('./utils/auth');
+const Handlebars = require('handlebars');
+// Set up Handlebars.js engine with custom helpers
+const hbs = exphbs.create({ helpers });
+
+//define the filePath
+const dogsFilePath = path.join(__dirname, 'views/dogs.handlebars');
+const catsFilePath = path.join(__dirname, 'views/cats.handlebars');
+
+// Read the contents of the handlebars files
+const dogsFileContents = fs.readFileSync(dogsFilePath, 'utf8');
+const catsFileContents = fs.readFileSync(catsFilePath, 'utf8');
+
+// Register partials directly using Handlebars
+Handlebars.registerPartial('dogs', dogsFileContents);
+Handlebars.registerPartial('cats', catsFileContents);
+
 // Define the routes by importing from the controllers directory
 const routes = require('./controllers');
 // Connect to the database using Sequelize

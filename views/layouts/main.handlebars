@@ -4,37 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pawfect Match</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header class="mainContainer">
     <h1>Pawfect Match</h1>
+    {{#if showNavBar}}
     <section class="navBar">
       <button>Sign In</button>
       <button>Log In</button>
       <button>Log Out</button>
     </section>
+    {{/if}}
   </header>
   <main>
-    <section class="connector">
-      <img src="./images /cat-and-dog.gif" alt="Cat and Dog">
-      <section class="searchBar">
-          <p>Search for your new best friend:</p>
-          <input type="text">
-          <button>Search</button>
-      </section>
-    <section class="mainContainer">
-        <section class="subContainers">
-            <section class="subContainer1">
-              <h2>Cats</h2>
-              <img src="./images /Cat.gif" alt="Cat and Dog">
-            </section>
-            <section class="subContainer2">
-              <h2>Dogs</h2>
-              <img src="./images /Dog.gif" alt="Cat and Dog">
-            </section>
-        </section>
-    </section>
+   {{#if showDogs}}
+  {{> dogs }} <!-- Include the dogs partial -->
+{{/if}}
+
+{{#if showCats}}
+  {{> cats }} <!-- Include the cats partial -->
+{{/if}}
+    {{{body}}}
 </main>
 <footer>
   <h3> 🐾 This application has been created by © 2023 Team 3 🐾 </h2>
