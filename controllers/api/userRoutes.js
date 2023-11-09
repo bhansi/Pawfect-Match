@@ -1,9 +1,8 @@
 const router = require('express').Router();
 const { Employees, Clients, Adoptions, Animals } = require('../../models');
 const withEmployeeAuth = require('../../utils/auth')
-const { sql } = require('sequelize/core')
 
-router.get('/applications', withEmployeeAuth, async (req, res) => {
+router.get('/applications', /* withEmployeeAuth, */ async (req, res) => {
   try {
     const applicationData = await Adoptions.findAll({
       include: [
@@ -42,9 +41,9 @@ router.get('/applications', withEmployeeAuth, async (req, res) => {
   }
 });
 
-router.put('/applications/:id', withEmployeeAuth, async (req, res) => {
+router.put('/applications/:id', /* withEmployeeAuth, */ async (req, res) => {
   try {
-    const primaryApplication = await Adoptions.findByPk(req.body.id);
+    const primaryApplication = await Adoptions.findByPk(req.params.id);
 
     primaryApplication.adoption_status = req.body.adoption_status;
     await primaryApplication.save();
@@ -57,7 +56,7 @@ router.put('/applications/:id', withEmployeeAuth, async (req, res) => {
         }
       });
 
-      await secondaryApplications.forEach(async (application) => {
+      secondaryApplications.forEach(async (application) => {
         application.adoption_status = 'adopted';
         await application.save();
       });
@@ -67,11 +66,7 @@ router.put('/applications/:id', withEmployeeAuth, async (req, res) => {
         where: {
           animal_id: primaryApplication.animal_id,
           adoption_status: 'requested',
-        },
-        having: sql`MIN(request_date)`,
-        order: [
-          [ 'request_date', 'ASC' ]
-        ]
+        }
       });
 
       secondaryApplication.adoption_status = 'pending';
@@ -134,3 +129,5 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
+
+module.exports = router;

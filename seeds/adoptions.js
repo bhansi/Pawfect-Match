@@ -8,6 +8,18 @@ const adoptionData = [
     adoption_status: 'pending',
   },
   {
+    animal_id: 1,
+    client_id: 2,
+    request_date: new Date(),
+    adoption_status: 'requested',
+  },
+  {
+    animal_id: 1,
+    client_id: 2,
+    request_date: new Date(),
+    adoption_status: 'requested',
+  },
+  {
     animal_id: 2,
     client_id: 2,
     request_date: new Date(),
