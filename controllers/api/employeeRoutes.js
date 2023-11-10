@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Clients, Adoptions, Animals } = require('../../models')
+const { Clients, Adoptions, Animals } = require('../../models');
 const withEmployeeAuth = require('../../utils/auth');
 
 // Retrieve all active applications
@@ -88,10 +88,17 @@ router.put('/animals/:id', /* withEmployeeAuth, */ async (req, res) => {
   try {
     const animalData = await Animals.findByPk(req.params.id);
 
-    animalData.name = req.body.name;
-    animalData.age = req.body.age;
-    animalData.description = req.body.description;
-    animalData.species = req.body.species;
+    if(req.body.name)
+      animalData.name = req.body.name;
+
+    if(req.body.age)
+      animalData.age = req.body.age;
+
+    if(req.body.description)
+      animalData.description = req.body.description;
+
+    if(req.body.species)
+      animalData.species = req.body.species;
 
     await animalData.save();
 
