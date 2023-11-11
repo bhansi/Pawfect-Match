@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const { Animals, Adoptions } = require('../models');
+const { Animals, Adoptions, Clients } = require('../models');
 
 //Home route
 router.get('/', async (req, res) => {
@@ -77,6 +77,7 @@ router.get('/cats', async (req, res) => {
       include: [
         {
           model: Adoptions,
+          attributes: ['adoption_status'],
           required: false,
         },
       ],
@@ -139,12 +140,13 @@ router.post('/signup', async (req, res) => {
       first_name,
       address,
       email,
-      password: hashedPassword,
+      password,
     });
 
     req.session.save(() => {
       req.session.user_id = newUser.id;
       req.session.logged_in = true;
+      req.session.user_name = newUser.first_name;
       res.redirect('/');
     });
   } catch (err) {
