@@ -1,112 +1,42 @@
 
-    <section class="connector">
-      <img src="images/cat-and-dog.gif" alt="Cat and Dog">
-      <section class="searchBar">
-          <p>Search for your new best friend:</p>
-          <input type="text">
-          <button>Search</button>
-      </section>
-    <section class="mainContainer">
-        <section class="subContainersdogcat">
-            <section class="subContainer1">
-              <h2>Boston</h2>
-              <p>Breed: English Bulldog</p>
-              <p>Age: 3 years</p>
-              <p>Description: Excellent with kids.</p>
-              <img src="images/Bulldog.jpeg" alt="Bulldog">
-              <button>Adopt it!</button>
-              <div class="checkbox-wrapper">
-                <input type="checkbox" id="favorites">
-                <label for="favorites">Add to favorites</label>
-            </section>
-            <section class="subContainer1">
-              <h2>Boston</h2>
-              <p>Breed: English Bulldog</p>
-              <p>Age: 3 years</p>
-              <p>Description: Excellent with kids.</p>
-              <img src="images/Bulldog.jpeg" alt="Bulldog">
-              <button>Adopt it!</button>
-              <div class="checkbox-wrapper">
-                <input type="checkbox" id="favorites">
-                <label for="favorites">Add to favorites</label>
-            </section>
-            <section class="subContainer1">
-              <h2>Boston</h2>
-              <p>Breed: English Bulldog</p>
-              <p>Age: 3 years</p>
-              <p>Description: Excellent with kids.</p>
-              <img src="images/Bulldog.jpeg" alt="Bulldog">
-              <button>Adopt it!</button>
-              <div class="checkbox-wrapper">
-                <input type="checkbox" id="favorites">
-                <label for="favorites">Add to favorites</label>
-            </section>
-            <section class="subContainer1">
-              <h2>Boston</h2>
-              <p>Breed: English Bulldog</p>
-              <p>Age: 3 years</p>
-              <p>Description: Excellent with kids.</p>
-              <img src="images/Bulldog.jpeg" alt="Bulldog">
-              <button>Adopt it!</button>
-              <div class="checkbox-wrapper">
-                <input type="checkbox" id="favorites">
-                <label for="favorites">Add to favorites</label>
-            </section>
-            <section class="subContainer1">
-              <h2>Boston</h2>
-              <p>Breed: English Bulldog</p>
-              <p>Age: 3 years</p>
-              <p>Description: Excellent with kids.</p>
-              <img src="images/Bulldog.jpeg" alt="Bulldog">
-              <button>Adopt it!</button>
-              <div class="checkbox-wrapper">
-                <input type="checkbox" id="favorites">
-                <label for="favorites">Add to favorites</label>
-            </section>
-            <section class="subContainer1">
-              <h2>Boston</h2>
-              <p>Breed: English Bulldog</p>
-              <p>Age: 3 years</p>
-              <p>Description: Excellent with kids.</p>
-              <img src="images/Bulldog.jpeg" alt="Bulldog">
-              <button>Adopt it!</button>
-              <div class="checkbox-wrapper">
-                <input type="checkbox" id="favorites">
-                <label for="favorites">Add to favorites</label>
-            </section>
-            <section class="subContainer1">
-              <h2>Boston</h2>
-              <p>Breed: English Bulldog</p>
-              <p>Age: 3 years</p>
-              <p>Description: Excellent with kids.</p>
-              <img src="images/Bulldog.jpeg" alt="Bulldog">
-              <button>Adopt it!</button>
-              <div class="checkbox-wrapper">
-                <input type="checkbox" id="favorites">
-                <label for="favorites">Add to favorites</label>
-            </section>
-            <section class="subContainer1">
-              <h2>Boston</h2>
-              <p>Breed: English Bulldog</p>
-              <p>Age: 3 years</p>
-              <p>Description: Excellent with kids.</p>
-              <img src="images/Bulldog.jpeg" alt="Bulldog">
-              <button>Adopt it!</button>
-              <div class="checkbox-wrapper">
-                <input type="checkbox" id="favorites">
-                <label for="favorites">Add to favorites</label>
-            </section>
-            <section class="subContainer1">
-              <h2>Boston</h2>
-              <p>Breed: English Bulldog</p>
-              <p>Age: 3 years</p>
-              <p>Description: Excellent with kids.</p>
-              <img src="images/Bulldog.jpeg" alt="Bulldog">
-              <button>Adopt it!</button>
-              <div class="checkbox-wrapper">
-                <input type="checkbox" id="favorites">
-                <label for="favorites">Add to favorites</label>
-            </section>
+  <section class='connector'>
+  <img src='images/cat-and-dog.gif' alt='Cat and Dog' />
+  <section class='searchBar'>
+    <p>Search for your new best friend:</p>
+    <input type='text' />
+    <button>Search</button>
+  </section>
+  <section class='mainContainer'>
+    <section class='subContainersdogcat'>
+      {{#each dogs}}
+        <section class='subContainer1'>
+          <h2>{{this.name}}</h2>
+          <p>Breed: {{this.breed}}</p>
+          <p>Age: {{this.age}} years</p>
+          <p>Description: {{this.description}}</p>
+          <img src='images/{{this.photo}}' alt='{{this.name}}' />
+
+          {{#if ../logged_in}} <!-- Access logged_in from the parent context -->
+            {{#if this.Adoptions}}
+              {{#unless (eq this.Adoptions.adoption_status 'in process')}}
+                <button onclick="location.href='/adoptions?animal_id={{this.id}}'">Adopt it!</button>
+              {{else}}
+                <p>Adoption in process</p>
+              {{/unless}}
+            {{else}}
+              <button onclick="location.href='/adoptions?animal_id={{this.id}}'">Adopt it!</button>
+            {{/if}}
+          {{/if}}
+
+          <div class='checkbox-wrapper'>
+            <input type='checkbox' id='favorites-{{this.id}}' />
+            <label for='favorites-{{this.id}}'>Add to favorites</label>
+          </div>
         </section>
+      {{else}}
+        <p>No dogs available for adoption.</p>
+      {{/each}}
     </section>
   </section>
+</section>
+<script src='/js/logout.js'></script>

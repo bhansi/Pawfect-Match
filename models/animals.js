@@ -30,6 +30,11 @@ Animals.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    species: {
+      // Add this field
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize,
