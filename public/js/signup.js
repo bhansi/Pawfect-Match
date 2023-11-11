@@ -3,12 +3,12 @@ document
   .addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const username = document.querySelector('#username-signup').value.trim();
+    const first_name = document.querySelector('#username-signup').value.trim();
     const address = document.querySelector('#address-signup').value.trim();
     const email = document.querySelector('#email-signup').value.trim();
     const password = document.querySelector('#password-signup').value.trim();
 
-    if (username && email && password) {
+    if (first_name && email && password) {
       const response = await fetch('/signup', {
         method: 'POST',
         body: JSON.stringify({
