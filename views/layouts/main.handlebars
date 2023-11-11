@@ -9,11 +9,18 @@
 <body>
   <header class="mainContainer">
     <h1>Pawfect Match</h1>
+    <!-- User Welcome Message -->
+    {{#if logged_in}}
+      <div class="user-welcome">
+        <p>Welcome,{{userName}}!</p>
+        <button id='logout'> Log out</button>
+      </div>
+    {{/if}}
     {{#if showNavBar}}
     <section class="navBar">
-      <button>Sign In</button>
-      <button>Log In</button>
-      <button>Log Out</button>
+      <a href="http://localhost:3001/login"><button>Log In</button></a>
+      <a href="http://localhost:3001/login"><button>Sign up</button></a>
+      {{!-- <a href="http://localhost:3001/"><button>Log out</button></a> --}}
     </section>
     {{/if}}
   </header>
