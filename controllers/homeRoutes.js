@@ -29,11 +29,14 @@ router.get('/', async (req, res) => {
       showNavBar: true, // condition to show the nav bar
       animals, // Pass the animals data to the template
       title: 'Animals Page', // Pass the title to the template
+      logged_in: req.session.logged_in, // Pass the logged-in status
+      userName: req.session.user_name, // Pass the logged-in user's name
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
 //Dogs route
 router.get('/dogs', async (req, res) => {
   try {
@@ -46,28 +49,32 @@ router.get('/dogs', async (req, res) => {
       ],
       where: {
         species: 'dog',
-        '$adoption.adoption_status$': 'pending',
+        //'$adoption.adoption_status$': 'pending',
       },
     });
 
-    if (!dogData) {
-      res.json({
-        message: 'There are no dogs available for adoption',
+    if (!dogData.length) {
+      res.render('dogs', {
+        message: 'There are no cats available for adoption.',
+        logged_in: req.session.logged_in,
+        userName: req.session.logged_in ? req.session.user_name : null,
       });
       return;
     }
 
     const dogs = dogData.map((dog) => dog.get({ plain: true }));
 
-    res.render('homepage', {
-      ...dogs,
+    res.render('dogs', {
+      dogs: dogs,
       logged_in: req.session.logged_in,
       is_employee: req.session.is_employee,
+      userName: req.session.logged_in ? req.session.user_name : null,
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
 //cats route
 router.get('/cats', async (req, res) => {
   try {
@@ -80,18 +87,15 @@ router.get('/cats', async (req, res) => {
       ],
       where: {
         species: 'cat',
-        '$adoption.adoption_status$': 'pending',
+        // '$adoption.adoption_status$': 'pending',(for now check it later if it works)
       },
     });
 
     if (!catData.length) {
-      // Check if the result is an empty array
-      // Render a message if there are no cats
       res.render('cats', {
-        // Assuming your cats template is named 'cats.handlebars'
         message: 'There are no cats available for adoption.',
         logged_in: req.session.logged_in,
-        userName: req.session.logged_in ? req.session.user_name : null, // Include user name if logged in
+        userName: req.session.logged_in ? req.session.user_name : null,
       });
       return;
     }
@@ -99,20 +103,14 @@ router.get('/cats', async (req, res) => {
     const cats = catData.map((cat) => cat.get({ plain: true }));
 
     res.render('cats', {
-      cats: cats, // Pass the cats data as a property
+      cats: cats,
       logged_in: req.session.logged_in,
       is_employee: req.session.is_employee,
-      userName: req.session.logged_in ? req.session.user_name : null, // Include user name if logged in
+      userName: req.session.logged_in ? req.session.user_name : null,
     });
   } catch (err) {
     res.status(500).json(err);
   }
-});
-
-//Adoption form route
-router.get('/adoptions', (req, res) => {
-  res.render('adoptions', { title: 'Adoptions Page' });
-  res.render('adoptions', { showNavBar: false });
 });
 
 //Login route

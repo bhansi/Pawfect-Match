@@ -13,7 +13,7 @@ const loginFormHandler = async (event) => {
 
     if (response.ok) {
       // Redirect to the cats page after successful login
-      document.location.replace('/cats');
+      document.location.replace('/');
     } else {
       alert('Failed to log in. ' + response.statusText);
     }
