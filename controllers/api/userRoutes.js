@@ -1,25 +1,29 @@
 const router = require('express').Router();
+const bcrypt = require('bcrypt');
 const { Employees, Clients } = require('../../models');
 
 router.post('/login', async (req, res) => {
   try {
-    const userData = await (
-        req.body.is_employee ?
-        Employees            :
-        Clients              ).findOne({ where: { email: req.body.email } });
+    console.log('Request body:', req.body); // Log the request body to the console to see what was sent
+    const userData = await (req.body.is_employee ? Employees : Clients).findOne(
+      {
+        where: { email: req.body.email },
+      }
+    );
 
     if (!userData) {
+      console.log('No user found with that email');
       res.status(400).json({
-        message: 'Incorrect email or password, please try again.'
+        message: 'Incorrect email or password, please try again.',
       });
       return;
     }
 
-    const validPassword = await employeeData.checkPassword(req.body.password);
-
+    const validPassword = await userData.checkPassword(req.body.password);
+    console.log('Password validation result:', validPassword);
     if (!validPassword) {
       res.status(400).json({
-        message: 'Incorrect email or password, please try again.'
+        message: 'Incorrect email or password, please try again.',
       });
       return;
     }
@@ -28,14 +32,16 @@ router.post('/login', async (req, res) => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
       req.session.is_employee = req.body.is_employee;
+      req.session.user_name = userData.first_name;
 
       res.json({
         user: userData,
-        message: 'You are now logged in!'
+        userName: userData.first_name,
+        message: 'You are now logged in!',
       });
     });
-
   } catch (err) {
+    console.error('Error during login:', err);
     res.status(400).json(err);
   }
 });

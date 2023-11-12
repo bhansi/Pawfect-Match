@@ -9,26 +9,25 @@
 <body>
   <header class="mainContainer">
     <h1>Pawfect Match</h1>
-    {{#if showNavBar}}
-    <section class="navBar">
-      <button>Sign In</button>
-      <button>Log In</button>
-      <button>Log Out</button>
-    </section>
+    <!-- User Welcome Message -->
+    {{#if logged_in}}
+      <div class="user-welcome">
+        <p>Welcome, {{userName}}!</p>
+        <button id='logout'> Log out</button>
+      </div>
+    {{else}}
+      <section class="navBar">
+        <a href="/login"><button>Log In</button></a>
+        <a href="/signup"><button>Sign up</button></a>
+      </section>
     {{/if}}
   </header>
   <main>
-   {{#if showDogs}}
-  {{> dogs }} <!-- Include the dogs partial -->
-{{/if}}
-
-{{#if showCats}}
-  {{> cats }} <!-- Include the cats partial -->
-{{/if}}
     {{{body}}}
-</main>
-<footer>
-  <h3> 🐾 This application has been created by © 2023 Team 3 🐾 </h2>
-</footer>  
+  </main>
+  <footer>
+    <h3> 🐾 This application has been created by © 2023 Team 3 🐾 </h2>
+  </footer>  
 </body>
 </html>
+<script src='/js/logout.js'></script>

@@ -26,10 +26,15 @@ Animals.init(
     photo: {
       type: DataTypes.STRING,
     },
-    species: {
+    breed: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
+    species: {
+      // Add this field
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize,
