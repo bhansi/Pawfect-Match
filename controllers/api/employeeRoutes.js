@@ -87,31 +87,4 @@ router.put('/applications/:id', /* withEmployeeAuth, */ async (req, res) => {
   }
 });
 
-// Update specific animal
-router.put('/animals/:id', /* withEmployeeAuth, */ async (req, res) => {
-  try {
-    const animalData = await Animals.findByPk(req.params.id);
-
-    if(req.body.name)
-      animalData.name = req.body.name;
-
-    if(req.body.age)
-      animalData.age = req.body.age;
-
-    if(req.body.description)
-      animalData.description = req.body.description;
-
-    if(req.body.species)
-      animalData.species = req.body.species;
-
-    await animalData.save();
-
-    res.json({
-      message: 'Successfully updated animal data.'
-    });
-  } catch(err) {
-    res.status(400).json(err);
-  }
-});
-
 module.exports = router;
