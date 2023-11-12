@@ -15,7 +15,7 @@ const adoptionData = [
   },
   {
     animal_id: 1,
-    client_id: 2,
+    client_id: 3,
     request_date: new Date(),
     adoption_status: 'requested',
   },
