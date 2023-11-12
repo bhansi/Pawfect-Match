@@ -21,7 +21,8 @@
               {{#unless (eq this.Adoptions.adoption_status 'in process')}}
                 <button onclick="location.href='/adoptions?animal_id={{this.id}}'">Adopt it!</button>
               {{else}}
-                <p>Adoption in process</p>
+              <!-- Show adoption status -->
+                 <p>Status: {{this.Adoptions.adoption_status}}</p>
               {{/unless}}
             {{else}}
               <button onclick="location.href='/adoptions?animal_id={{this.id}}'">Adopt it!</button>
