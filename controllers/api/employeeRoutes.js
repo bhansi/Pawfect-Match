@@ -52,6 +52,9 @@ router.put('/applications/:id', /* withEmployeeAuth, */ async (req, res) => {
     await primaryApplication.save();
 
     if(primaryApplication.adoption_status === 'approved') {
+      primaryApplication.adoption_date = new Date();
+      await primaryApplication.save();
+
       const secondaryApplications = await Adoptions.findAll({
         where: {
           animal_id: primaryApplication.animal_id,
