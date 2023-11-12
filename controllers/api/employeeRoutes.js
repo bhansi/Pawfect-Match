@@ -87,4 +87,19 @@ router.put('/applications/:id', /* withEmployeeAuth, */ async (req, res) => {
   }
 });
 
+// Add an animal
+router.post('/animal', /* withEmployeeAuth, */ async (req, res) => {
+  try {
+    const newAnimal = await Animals.create({
+      ...req.body,
+    });
+
+    res.json({
+      message: 'Successfully added new animal to database.',
+    });
+  } catch(err) {
+    res.status(400).json(err);
+  }
+});
+
 module.exports = router;
