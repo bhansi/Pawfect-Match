@@ -31,7 +31,7 @@ router.get('/applications', /* withAuth, */ async (req, res) => {
 });
 
 // Create new adoption application
-router.post('/application', /* withAuth, */ async (req, res) => {
+router.post('/application/:id', /* withAuth, */ async (req, res) => {
   try {
     const applicationData = await Adoptions.findAll({
       where: {
@@ -44,6 +44,7 @@ router.post('/application', /* withAuth, */ async (req, res) => {
       const newApplication = await Adoptions.create({
         ...req.body,
         client_id: req.session.user_id,
+        request_date: new Date(),
         adoption_status: 'pending'
       });
 
@@ -52,18 +53,19 @@ router.post('/application', /* withAuth, */ async (req, res) => {
       });
     }
     else {
-      applicationData.forEach((application) => {
-        if(application.client_id === req.session.user_id) {
+      for(let i = 0; i < applicationData.length; i++) {
+        if(applicationData[i].client_id == req.session.user_id) {
           res.json({
             message: 'You already have an active adoption application for this animal.'
           });
           return;
         }
-      });
+      }
 
       const newApplication = await Adoptions.create({
         ...req.body,
         client_id: req.session.user_id,
+        request_date: new Date(),
         adoption_status: 'requested'
       });
 
