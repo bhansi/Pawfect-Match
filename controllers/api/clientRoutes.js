@@ -31,7 +31,7 @@ router.get('/applications', /* withAuth, */ async (req, res) => {
 });
 
 // Create new adoption application
-router.post('/application/:id', /* withAuth, */ async (req, res) => {
+router.post('/application', /* withAuth, */ async (req, res) => {
   try {
     const applicationData = await Adoptions.findAll({
       where: {
@@ -76,6 +76,11 @@ router.post('/application/:id', /* withAuth, */ async (req, res) => {
   } catch(err) {
     res.status(400).json(err);
   }
+});
+
+// Withdraw adoption application
+router.put('/applications/:id', withAuth, async (req, res) => {
+
 });
 
 module.exports = router;
