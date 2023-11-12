@@ -35,7 +35,8 @@ router.get('/applications', /* withEmployeeAuth, */ async (req, res) => {
     const applications = applicationData.map((application) => application.get({ plain: true }));
 
     res.render('applications', {
-      ...applications
+      ...applications,
+      is_employee: true,
     });
   } catch(err) {
     res.status(400).json(err);
