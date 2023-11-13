@@ -25,6 +25,10 @@ Adoptions.init(
         key: 'id',
       },
     },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     request_date: {
       type: DataTypes.DATE,
       allowNull: false,
