@@ -19,6 +19,7 @@
                 <label for='address'>Address:</label>
                 <input class='form-input' type='text' id='address' />
               </div>
+
               <div class='form-group'>
                 <label for='email'>Email:</label>
                 <input class='form-input' type='text' id='email' />
@@ -27,14 +28,17 @@
               <div class='form-group'>
                 <label for='adoption-reason'>Why do you want to adopt a new
                   friend?</label>
-                <textarea
-                  id='adoption-reason'
-                  name='adoption_reason'
-                ></textarea>
-
+                <textarea id='adoption-reason'>Type here...</textarea>
               </div>
+
+              <!-- New Description Field -->
+              {{! <div class='form-group'>
+                <label for='description'>Description:</label>
+                <textarea id='description'>Type here...</textarea>
+              </div> }}
+
               <div class='form-group'>
-                <button class='btn btn-primary' type='submit'>submit</button>
+                <button class='btn btn-primary' type='submit'>Submit</button>
               </div>
             </form>
           </div>

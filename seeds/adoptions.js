@@ -25,7 +25,6 @@ const adoptionData = [
   {
     animal_id: 2,
     client_id: 2,
-    description: 'This is my dream pet.',
     request_date: new Date(),
     adoption_status: 'approved',
     adoption_date: new Date(),

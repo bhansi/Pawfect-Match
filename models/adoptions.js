@@ -27,7 +27,7 @@ Adoptions.init(
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     request_date: {
       type: DataTypes.DATE,
