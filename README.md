@@ -85,7 +85,7 @@ THEN I am taken to a page with an adoption form.
 ```
 
 ## Installation Instructions
-This is an online Web Application deployed through Heroku, hence it doesn't need user's installation.
+This is an online Web Application deployed through Heroku, hence, it doesn't need user's installation.
 
 ## Usage Instructions
 1. Open the web page using the link provided further in this README file, 
@@ -119,13 +119,13 @@ This is an online Web Application deployed through Heroku, hence it doesn't need
 This application has been tested by using Insomnia as well as running it several times adding information to the databases, and requesting adoptions.
 
 ## Questions?
-If you have any questions related with Pawfect Match, feel free to reach me through:
+If you have any questions related with Pawfect Match, feel free to reach us through:
 
 ### Email:
 
-[fibarrafdec@gmail.com](fibarrafdec@gmail.com)
+[kiry362@gmail.com](kiry362@gmail.com)
 
-[fibarrafdec@gmail.com](fibarrafdec@gmail.com)
+[baljotshansi@gmail.com](baljotshansi@gmail.com)
 
 [matthewthompson118@gmail.com](matthewthompson118@gmail.com)
 
@@ -133,9 +133,9 @@ If you have any questions related with Pawfect Match, feel free to reach me thro
 
 ### GitHub username:
 
-[bhansi](https://github.com/bhansi)
-
 [Kirill777-web](https://github.com/Kirill777-web)
+
+[bhansi](https://github.com/bhansi)
 
 [MattThompson15](https://github.com/MattThompson15)
 
@@ -143,6 +143,10 @@ If you have any questions related with Pawfect Match, feel free to reach me thro
 
 ## Credits
 This application has been created by © 2023 Team 3.
+
+Front end: Matt Thompson and Fernando Ibarra.
+
+Back end: Kirill Lazutin and Baljot Hansi.
 
 ## License & Copyright ©
 This application is covered under the MIT License.
