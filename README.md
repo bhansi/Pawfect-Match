@@ -94,6 +94,9 @@ This is an online Web Application deployed through Heroku, hence, it doesn't nee
 4. Take your time to review all the options available,
 5. Whenever you are ready click on the "adopt it!" button,
 6. Fulfil the Adoption form and submit the request.
+   
+Note: if you want to see how the app works for employees you can use this credentials:
+email: 'john.doe@example.com', 'password: 'password123',
 
 ## Technologies Used
 - node.js [Version 16.18.1](https://nodejs.org/en/blog/release/v16.18.1/)
