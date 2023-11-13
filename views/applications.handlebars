@@ -1,0 +1,27 @@
+<section class='connector'>
+  <img src='images/cat-and-dog.gif' alt='Cat and Dog' />
+  <section class='mainContainer'>
+    <section class='subContainersdogcat'>
+      {{#each applications}}
+        <section class='subContainer1'>
+          <h2>Application for {{this.animal.name}}</h2>
+          <p><strong>Applicant:</strong> {{this.client.first_name}}</p>
+          <p><strong>Email:</strong> {{this.client.email}}</p>
+          <p><strong>Address:</strong> {{this.client.address}}</p>
+          <p><strong>Reason for Adoption:</strong>
+            {{this.client.adoption_reason}}</p>
+          <p><strong>Application Status:</strong> {{this.adoption_status}}</p>
+          {{!-- <button onclick='deleteApplication({{this.id}})'>Delete</button>
+          <button onclick='updateApplication({{this.id}})'>Update</button> --}}
+          <button onclick="window.location.href='/application/{{this.id}}'">View
+            Details</button>
+        </section>
+      {{else}}
+        <section class='subContainer1'>
+          <p>No applications found.</p>
+        </section>
+      {{/each}}
+    </section>
+  </section>
+</section>
+<script src='/js/deleteApplication.js'></script>

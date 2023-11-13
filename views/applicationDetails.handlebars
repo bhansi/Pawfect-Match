@@ -1,0 +1,34 @@
+<!-- applicationDetails.handlebars -->
+<section class='connector'>
+  <img src='/images/cat-and-dog.gif' alt='Cat and Dog' />
+  <section class='mainContainer'>
+    <section class='subContainersdogcat'>
+      <section class='subContainer1'>
+        <h2>Application for {{application.animal.name}}</h2>
+        <p><strong>Applicant:</strong> {{application.client.first_name}}</p>
+        <p><strong>Email:</strong> {{application.client.email}}</p>
+        <p><strong>Address:</strong> {{application.client.address}}</p>
+        <p><strong>Reason for Adoption:</strong>
+          {{application.adoption_reason}}</p>
+        <p><strong>Application Status:</strong>
+          {{application.adoption_status}}</p>
+        <div
+          id='status-update-container-{{application.id}}'
+          style='display: none;'
+        >
+          <select id='adoption-status-dropdown-{{application.id}}'>
+            <option value='pending'>pending</option>
+            <option value='adopted'>adopted</option>
+            <option value='cancelled'>approved</option>
+          </select>
+          <button onclick='submitUpdate({{application.id}})'>Submit Update</button>
+        </div>
+        <button onclick='showUpdateMenu({{application.id}})'>Update</button>
+        <button onclick='deleteApplication({{application.id}})'>Delete</button>
+
+      </section>
+    </section>
+  </section>
+</section>
+<script src='/js/deleteApplication.js'></script>
+<script src='/js/updateApplication.js'></script>

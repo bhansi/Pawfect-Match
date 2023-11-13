@@ -41,6 +41,10 @@ Adoptions.init(
       type: DataTypes.DATE,
       allowNull: true, // Assuming adoption_date can be null until the adoption is finalized
     },
+    adoption_reason: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     approved_by: {
       type: DataTypes.INTEGER,
       references: {

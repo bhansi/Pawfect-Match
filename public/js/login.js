@@ -3,17 +3,22 @@ const loginFormHandler = async (event) => {
 
   const email = document.querySelector('#email-login').value.trim();
   const password = document.querySelector('#password-login').value.trim();
+  const isEmployee = document.querySelector('#is-employee-checkbox').checked;
 
   if (email && password) {
     const response = await fetch('/api/user/login', {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, is_employee: isEmployee }),
       headers: { 'Content-Type': 'application/json' },
     });
 
     if (response.ok) {
-      // Redirect to the cats page after successful login
-      document.location.replace('/');
+      const responseData = await response.json();
+      if (responseData.isEmployee) {
+        document.location.replace('/applications'); // Redirect to the applications page for employees
+      } else {
+        document.location.replace('/'); // Redirect to the main page for regular users
+      }
     } else {
       alert('Failed to log in. ' + response.statusText);
     }
