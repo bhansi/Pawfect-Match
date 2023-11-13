@@ -104,7 +104,7 @@ This is an online Web Application deployed through Heroku, hence, it doesn't nee
 - Visual Studio Code: [Website](https://code.visualstudio.com/)
 
 ## Deployed Application Link
-[Pawfect Match](https://lit-caverns-39901-b1b0838a840a.herokuapp.com/)
+[Pawfect Match](https://pawfectmatch-1aca1a9b79f8.herokuapp.com/)
 
 ## Screenshots
 ![Screenshot](./public/images/screenshots/1.png)
