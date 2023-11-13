@@ -1,8 +1,8 @@
-const withAuth = (req, res, next) => {
-  if (!req.session.logged_in) {
-    res.redirect('/login');
-  } else {
+const withClientAuth = (req, res, next) => {
+  if (!req.session.is_employee && req.session.logged_in) {
     next();
+  } else {
+    res.redirect('/login');
   }
 };
 
@@ -15,4 +15,4 @@ const withEmployeeAuth = (req, res, next) => {
   }
 };
 
-module.exports = withAuth, withEmployeeAuth;
+module.exports = withClientAuth, withEmployeeAuth;

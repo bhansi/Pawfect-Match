@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const { Adoptions } = require('../../models');
-const withAuth = require('../../utils/auth');
+const withClientAuth = require('../../utils/auth');
 
 // Retrieve all active applications for a logged in client
-router.get('/applications', /* withAuth, */ async (req, res) => {
+router.get('/applications', withClientAuth, async (req, res) => {
   try {
     const applicationData = await Adoptions.findAll({
       where: {
@@ -31,7 +31,7 @@ router.get('/applications', /* withAuth, */ async (req, res) => {
 });
 
 // Create new adoption application
-router.post('/application', /* withAuth, */ async (req, res) => {
+router.post('/application', withClientAuth, async (req, res) => {
   try {
     const applicationData = await Adoptions.findAll({
       where: {
@@ -79,7 +79,7 @@ router.post('/application', /* withAuth, */ async (req, res) => {
 });
 
 // Withdraw adoption application
-router.put('/applications/:id', /* withAuth, */ async (req, res) => {
+router.put('/applications/:id', withClientAuth, async (req, res) => {
   try {
     const applicationData = await Adoptions.findOne({
       where: {
