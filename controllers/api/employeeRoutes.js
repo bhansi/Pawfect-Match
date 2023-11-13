@@ -3,7 +3,7 @@ const { Clients, Adoptions, Animals } = require('../../models');
 const withEmployeeAuth = require('../../utils/auth');
 
 // Retrieve all active applications
-router.get('/applications', /* withEmployeeAuth, */ async (req, res) => {
+router.get('/applications', withEmployeeAuth, async (req, res) => {
   try {
     const applicationData = await Adoptions.findAll({
       include: [
@@ -44,7 +44,7 @@ router.get('/applications', /* withEmployeeAuth, */ async (req, res) => {
 });
 
 // Update specific application
-router.put('/applications/:id', /* withEmployeeAuth, */ async (req, res) => {
+router.put('/applications/:id', withEmployeeAuth, async (req, res) => {
   try {
     const primaryApplication = await Adoptions.findByPk(req.params.id);
 
@@ -88,7 +88,7 @@ router.put('/applications/:id', /* withEmployeeAuth, */ async (req, res) => {
 });
 
 // Add an animal
-router.post('/animal', /* withEmployeeAuth, */ async (req, res) => {
+router.post('/animal', withEmployeeAuth, async (req, res) => {
   try {
     const newAnimal = await Animals.create({
       ...req.body,
@@ -103,7 +103,7 @@ router.post('/animal', /* withEmployeeAuth, */ async (req, res) => {
 });
 
 // Delete a specific animal
-router.delete('/animal/:id', /* withEmployeeAuth, */ async (req, res) => {
+router.delete('/animal/:id', withEmployeeAuth, async (req, res) => {
   try {
     const animalData = await Animals.destroy({
       where: {

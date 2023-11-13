@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const { Adoptions } = require('../../models');
-const withAuth = require('../../utils/auth');
+const withClientAuth = require('../../utils/auth');
 
 // Retrieve all active applications for a logged in client
-router.get('/applications', /* withAuth, */ async (req, res) => {
+router.get('/applications', withClientAuth, async (req, res) => {
   try {
     const applicationData = await Adoptions.findAll({
       where: {
@@ -14,7 +14,7 @@ router.get('/applications', /* withAuth, */ async (req, res) => {
 
     if(!applicationData.length) {
       res.json({
-        message: 'No active applications to display.'
+        message: 'No active adoption applications to display.'
       });
       return;
     }
@@ -31,7 +31,7 @@ router.get('/applications', /* withAuth, */ async (req, res) => {
 });
 
 // Create new adoption application
-router.post('/application', /* withAuth, */ async (req, res) => {
+router.post('/application', withClientAuth, async (req, res) => {
   try {
     const applicationData = await Adoptions.findAll({
       where: {
@@ -79,8 +79,44 @@ router.post('/application', /* withAuth, */ async (req, res) => {
 });
 
 // Withdraw adoption application
-router.put('/applications/:id', withAuth, async (req, res) => {
+router.put('/applications/:id', withClientAuth, async (req, res) => {
+  try {
+    const applicationData = await Adoptions.findOne({
+      where: {
+        id: req.params.id,
+        adoption_status: [ 'pending', 'requested' ]
+      }
+    });
 
+    if(!applicationData) {
+      res.json({
+        message: 'Could not find adoption application.'
+      });
+    }
+    else {
+      if(applicationData.adoption_status == 'pending') {
+        const nextApplication = await Adoptions.findOne({
+          where: {
+            animal_id: applicationData.animal_id,
+            adoption_status: 'requested'
+          }
+        });
+
+        if(nextApplication) {
+          nextApplication.adoption_status = 'pending';
+          nextApplication.save();
+        }
+
+        applicationData.adoption_status = 'withdrawn';
+        await applicationData.save();
+        res.json({
+          message: 'Successfully withdrew adoption application.'
+        });
+      }
+    }
+  } catch(err) {
+    res.status(400).json(err);
+  }
 });
 
 module.exports = router;

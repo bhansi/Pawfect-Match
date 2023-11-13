@@ -25,12 +25,16 @@ Adoptions.init(
         key: 'id',
       },
     },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     request_date: {
       type: DataTypes.DATE,
       allowNull: false,
     },
     adoption_status: {
-      type: DataTypes.STRING, // pending, requested, approved, denied, adopted, cancelled
+      type: DataTypes.STRING, // pending, requested, approved, denied, adopted, withdrawn
       allowNull: false,
     },
     adoption_date: {
