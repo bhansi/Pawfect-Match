@@ -69,7 +69,7 @@ app.use(session(sess));
 // Set up Handlebars.js engine with custom helpers and set it as the view engine
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-
+// app.set('views', './views');
 // Apply middleware for parsing JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

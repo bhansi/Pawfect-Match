@@ -109,6 +109,102 @@ router.get('/cats', async (req, res) => {
   }
 });
 
+// GET route to display the adoption form
+router.get('/adoption-form', async (req, res) => {
+  try {
+    const animalId = req.query.animal_id;
+    res.render('adoption-form', {
+      animalId: animalId,
+      logged_in: req.session.logged_in,
+      userName: req.session.logged_in ? req.session.user_name : null,
+    });
+  } catch (err) {
+    console.error('Error loading adoption form:', err);
+    res.status(500).send('Error loading the adoption form');
+  }
+});
+
+//Success page
+router.get('/success-page', (req, res) => {
+  res.render('success-page', {
+    layout: 'main',
+    userName: req.session.userName,
+    logged_in: req.session.logged_in,
+    userName: req.session.logged_in ? req.session.user_name : null,
+  });
+});
+
+// Retrieve all active applications
+router.get(
+  '/applications',
+  /* withEmployeeAuth, */ async (req, res) => {
+    try {
+      const applicationData = await Adoptions.findAll({
+        include: [
+          {
+            model: Animals,
+            required: true,
+          },
+          {
+            model: Clients,
+            required: true,
+          },
+        ],
+        where: {
+          adoption_status: ['pending', 'requested', 'approved'],
+        },
+        order: [
+          ['request_date', 'ASC'],
+          ['animal_id', 'ASC'],
+        ],
+      });
+
+      if (!applicationData) {
+        console.log(applicationData);
+        res.json({
+          message: 'There are no active applications to display.',
+        });
+        return;
+      }
+
+      const applications = applicationData.map((application) =>
+        application.get({ plain: true })
+      );
+      console.log(applications);
+      res.render('applications', {
+        applications: applications,
+        is_employee: true,
+      });
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  }
+);
+//Application details route
+router.get('/application/:id', async (req, res) => {
+  try {
+    const applicationId = req.params.id;
+    const applicationData = await Adoptions.findOne({
+      where: { id: applicationId },
+      include: [{ model: Animals }, { model: Clients }],
+    });
+    console.log(
+      'Fetched application data:',
+      applicationData.get({ plain: true })
+    );
+    if (applicationData) {
+      res.render('applicationDetails', {
+        application: applicationData.get({ plain: true }),
+        layout: 'main',
+      });
+    } else {
+      res.status(404).send('Application not found');
+    }
+  } catch (error) {
+    console.error('Error fetching application details:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 //Login route
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
