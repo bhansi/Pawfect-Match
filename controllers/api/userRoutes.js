@@ -60,7 +60,7 @@ router.post('/adoption-form', async (req, res) => {
       client_id: clientId,
       request_date: requestDate || new Date(),
       adoption_status: adoptionStatus || 'pending',
-      // Other fields can be added as necessary
+      adoption_reason: adoptionReason,
     });
 
     // Redirect to a success page or handle the response as needed

@@ -5,6 +5,7 @@ document
 
     const firstName = document.querySelector('#first-name').value;
     const animalId = document.querySelector('#animal-id').value;
+    const clientId = document.querySelector('#client-id').value;
     const address = document.querySelector('#address').value;
     const email = document.querySelector('#email').value;
     const reason = document.querySelector('#adoption-reason').value;
@@ -13,10 +14,11 @@ document
       method: 'POST',
       body: JSON.stringify({
         firstName,
+        animalId,
+        clientId,
         address,
         email,
         reason,
-        animalId,
       }),
       headers: {
         'Content-Type': 'application/json',
